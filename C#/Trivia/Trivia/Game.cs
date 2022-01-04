@@ -140,17 +140,15 @@ namespace Trivia
                                   + " Gold Coins.");
             }
 
-            Console.WriteLine("Answer was corrent!!!!");
-            _purses[currentPlayer]++;
-            Console.WriteLine(players[currentPlayer]
-                              + " now has "
-                              + _purses[currentPlayer]
-                              + " Gold Coins.");
-
-            currentPlayer++;
-            if (currentPlayer == players.Count) currentPlayer = 0;
+            SetNextPlayer();
 
             return DidPlayerWin();
+        }
+
+        private void SetNextPlayer()
+        {
+            currentPlayer++;
+            if (currentPlayer == players.Count) currentPlayer = 0;
         }
 
         public bool WrongAnswer()
@@ -159,8 +157,7 @@ namespace Trivia
             Console.WriteLine(players[currentPlayer] + " was sent to the penalty box");
             _inPenaltyBox[currentPlayer] = true;
 
-            currentPlayer++;
-            if (currentPlayer == players.Count) currentPlayer = 0;
+            SetNextPlayer();
             return true;
         }
 
