@@ -142,34 +142,28 @@ namespace Trivia
                             + _purses[currentPlayer]
                             + " Gold Coins.");
 
-                    var winner = DidPlayerWin();
                     currentPlayer++;
                     if (currentPlayer == players.Count) currentPlayer = 0;
+                }
 
-                    return winner;
-                }
-                else
-                {
-                    currentPlayer++;
-                    if (currentPlayer == players.Count) currentPlayer = 0;
-                    return true;
-                }
+                currentPlayer++;
+                if (currentPlayer == players.Count) currentPlayer = 0;
+                return true;
             }
-            else
-            {
+
+            
                 Console.WriteLine("Answer was corrent!!!!");
                 _purses[currentPlayer]++;
                 Console.WriteLine(players[currentPlayer]
-                        + " now has "
-                        + _purses[currentPlayer]
-                        + " Gold Coins.");
+                                  + " now has "
+                                  + _purses[currentPlayer]
+                                  + " Gold Coins.");
 
-                var winner = DidPlayerWin();
                 currentPlayer++;
                 if (currentPlayer == players.Count) currentPlayer = 0;
 
-                return winner;
-            }
+                return DidPlayerWin();
+            
         }
 
         public bool WrongAnswer()
