@@ -8,22 +8,22 @@ namespace Trivia
 
         public static void Main(string[] args)
         {
-            var aGame = new Game();
+            var game = new Game();
 
-            aGame.Add("Chet");
-            aGame.Add("Pat");
-            aGame.Add("Sue");
+            game.Add("Chet");
+            game.Add("Pat");
+            game.Add("Sue");
 
             var rand = new Random();
 
             do
             {
-                aGame.Roll(rand.Next(5) + 1);
+                game.Roll(rand.Next(5) + 1);
 
                 if (rand.Next(9) == 7)
-                    notAWinnerYet = aGame.WrongAnswer();
+                    notAWinnerYet = game.WrongAnswer();
                 else
-                    notAWinnerYet = aGame.WasCorrectlyAnswered();
+                    notAWinnerYet = game.WasCorrectlyAnswered();
             } while (notAWinnerYet);
         }
     }
