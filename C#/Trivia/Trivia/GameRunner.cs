@@ -8,10 +8,10 @@ namespace Trivia
 
         public static void Main(string[] args)
         {
-            Run();
+            Run(Convert.ToInt32(args[0]));
         }
 
-        private static void Run()
+        private static void Run(int seed)
         {
             var aGame = new Game();
 
@@ -19,7 +19,7 @@ namespace Trivia
             aGame.Add("Pat");
             aGame.Add("Sue");
 
-            var rand = new Random();
+            var rand = new Random(seed);
 
             do
             {
