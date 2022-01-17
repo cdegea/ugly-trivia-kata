@@ -8,6 +8,11 @@ namespace Trivia
 
         public static void Main(string[] args)
         {
+            Run();
+        }
+
+        private static void Run()
+        {
             var aGame = new Game();
 
             aGame.Add("Chet");
