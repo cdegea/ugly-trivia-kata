@@ -68,16 +68,20 @@ namespace Trivia
                 }
             }
 
-            places[currentPlayer] += roll;
-            if (places[currentPlayer] > 11) 
-                places[currentPlayer] = places[currentPlayer] - 12;
+            MoveToNextPlace(roll);
 
             Console.WriteLine(players[currentPlayer]
-                    + "'s new location is "
-                    + places[currentPlayer]);
+                              + "'s new location is "
+                              + places[currentPlayer]);
             Console.WriteLine("The category is " + CurrentCategory());
             AskQuestion();
+        }
 
+        private void MoveToNextPlace(int roll)
+        {
+            places[currentPlayer] += roll;
+            if (places[currentPlayer] > 11)
+                places[currentPlayer] -= 12;
         }
 
         private void AskQuestion()
@@ -144,13 +148,6 @@ namespace Trivia
             SetNextCurrentPlayer();
             return notWinner;
         }
-
-        private void SetNextCurrentPlayer()
-        {
-            currentPlayer++;
-            if (currentPlayer == players.Count) currentPlayer = 0;
-        }
-
         public bool WrongAnswer()
         {
             Console.WriteLine("Question was incorrectly answered");
@@ -159,6 +156,12 @@ namespace Trivia
 
             SetNextCurrentPlayer();
             return true;
+        }
+
+        private void SetNextCurrentPlayer()
+        {
+            currentPlayer++;
+            if (currentPlayer == players.Count) currentPlayer = 0;
         }
     }
 
