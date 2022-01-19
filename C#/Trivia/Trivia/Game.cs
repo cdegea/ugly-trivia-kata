@@ -115,16 +115,23 @@ namespace Trivia
 
         private string CurrentCategory()
         {
-            if (points[currentPlayer] == 0) return "Pop";
-            if (points[currentPlayer] == 4) return "Pop";
-            if (points[currentPlayer] == 8) return "Pop";
-            if (points[currentPlayer] == 1) return "Science";
-            if (points[currentPlayer] == 5) return "Science";
-            if (points[currentPlayer] == 9) return "Science";
-            if (points[currentPlayer] == 2) return "Sports";
-            if (points[currentPlayer] == 6) return "Sports";
-            if (points[currentPlayer] == 10) return "Sports";
-            return "Rock";
+            switch (points[currentPlayer])
+            {
+                case 0:
+                case 4:
+                case 8:
+                    return "Pop";
+                case 1:
+                case 5:
+                case 9:
+                    return "Science";
+                case 2:
+                case 6:
+                case 10:
+                    return "Sports";
+                default:
+                    return "Rock";
+            }
         }
 
         public bool WasCorrectlyAnswered()
@@ -155,7 +162,7 @@ namespace Trivia
             }
             else
             {
-                Console.WriteLine("Answer was corrent!!!!");
+                Console.WriteLine("Answer was correct!!!!");
                 purses[currentPlayer]++;
                 Console.WriteLine(players[currentPlayer]
                         + " now has "
