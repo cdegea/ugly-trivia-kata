@@ -1,15 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Trivia
 {
     public class Game
     {
         private readonly List<Player> players = new List<Player>();
+        private readonly QuestionCollection questionCollection;
         private int currentPlayerIndex;
         private bool isGettingOutOfPenaltyBox;
-        private readonly QuestionCollection questionCollection;
 
         public Game()
         {
@@ -50,30 +49,8 @@ namespace Trivia
             Console.WriteLine(CurrentPlayer.Name
                               + "'s new location is "
                               + CurrentPlayer.Place);
-            Console.WriteLine("The category is " + CurrentCategory());
-            questionCollection.GetNextQuestion(CurrentCategory());
-        }
-
-
-        private string CurrentCategory()
-        {
-            switch (CurrentPlayer.Place)
-            {
-                case 0:
-                case 4:
-                case 8:
-                    return "Pop";
-                case 1:
-                case 5:
-                case 9:
-                    return "Science";
-                case 2:
-                case 6:
-                case 10:
-                    return "Sports";
-                default:
-                    return "Rock";
-            }
+            Console.WriteLine("The category is " + CurrentPlayer.GetCategoryByCurrentPlace());
+            questionCollection.GetNextQuestion(CurrentPlayer.GetCategoryByCurrentPlace());
         }
 
         public bool WasCorrectlyAnswered()
@@ -108,7 +85,7 @@ namespace Trivia
 
         private void SetNextCurrentPlayer()
         {
-            if (++currentPlayerIndex == players.Count) 
+            if (++currentPlayerIndex == players.Count)
                 currentPlayerIndex = 0;
         }
     }
