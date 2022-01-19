@@ -56,37 +56,27 @@ namespace Trivia
 
             if (inPenaltyBox[currentPlayer])
             {
-                if (roll % 2 != 0)
+                isGettingOutOfPenaltyBox = roll % 2 != 0;
+                if (isGettingOutOfPenaltyBox)
                 {
-                    isGettingOutOfPenaltyBox = true;
-
                     Console.WriteLine(players[currentPlayer] + " is getting out of the penalty box");
-                    points[currentPlayer] = points[currentPlayer] + roll;
-                    if (points[currentPlayer] > 11) points[currentPlayer] = points[currentPlayer] - 12;
-
-                    Console.WriteLine(players[currentPlayer]
-                            + "'s new location is "
-                            + points[currentPlayer]);
-                    Console.WriteLine("The category is " + CurrentCategory());
-                    AskQuestion();
                 }
                 else
                 {
                     Console.WriteLine(players[currentPlayer] + " is not getting out of the penalty box");
-                    isGettingOutOfPenaltyBox = false;
+                    return;
                 }
             }
-            else
-            {
-                points[currentPlayer] = points[currentPlayer] + roll;
-                if (points[currentPlayer] > 11) points[currentPlayer] = points[currentPlayer] - 12;
 
-                Console.WriteLine(players[currentPlayer]
-                        + "'s new location is "
-                        + points[currentPlayer]);
-                Console.WriteLine("The category is " + CurrentCategory());
-                AskQuestion();
-            }
+            points[currentPlayer] = points[currentPlayer] + roll;
+            if (points[currentPlayer] > 11) points[currentPlayer] = points[currentPlayer] - 12;
+
+            Console.WriteLine(players[currentPlayer]
+                    + "'s new location is "
+                    + points[currentPlayer]);
+            Console.WriteLine("The category is " + CurrentCategory());
+            AskQuestion();
+
         }
 
         private void AskQuestion()
@@ -149,9 +139,9 @@ namespace Trivia
                               + purses[currentPlayer]
                               + " Gold Coins.");
 
-            var winner1 = purses[currentPlayer] != 6;
+            var notWinner = purses[currentPlayer] != 6;
             SetNextCurrentPlayer();
-            return winner1;
+            return notWinner;
         }
 
         private void SetNextCurrentPlayer()
