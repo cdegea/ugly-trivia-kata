@@ -6,17 +6,12 @@ namespace Trivia
     public class Game
     {
         private readonly List<Player> players = new List<Player>();
-        private readonly QuestionCollection questionCollection;
+        private readonly QuestionCollection questionCollection = new QuestionCollection();
         private int currentPlayerIndex;
         private bool isGettingOutOfPenaltyBox;
 
-        public Game()
-        {
-            questionCollection = new QuestionCollection();
-        }
-
         private Player CurrentPlayer => players[currentPlayerIndex];
-        public bool HasAWinner => CurrentPlayer.Points != 6;
+        public bool HasNotAWinner => CurrentPlayer.Points != 6;
 
         public void AddPlayer(string playerName)
         {
@@ -51,6 +46,7 @@ namespace Trivia
                               + "'s new location is "
                               + CurrentPlayer.Place);
             Console.WriteLine("The category is " + CurrentPlayer.CurrentCategory());
+
             questionCollection.GetNextQuestion(CurrentPlayer.CurrentCategory());
         }
 
@@ -69,7 +65,7 @@ namespace Trivia
                               + CurrentPlayer.Points
                               + " Gold Coins.");
 
-            var notWinner = HasAWinner;
+            var notWinner = HasNotAWinner;
             SetNextCurrentPlayer();
             return notWinner;
         }
@@ -85,6 +81,8 @@ namespace Trivia
 
         private void SetNextCurrentPlayer()
         {
+            if (!this.HasNotAWinner) return;
+
             if (++currentPlayerIndex == players.Count)
                 currentPlayerIndex = 0;
         }
