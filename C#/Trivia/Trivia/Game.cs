@@ -6,14 +6,8 @@ namespace Trivia
 {
     public class Game
     {
-        private readonly List<string> players = new List<string>();
-
-        private readonly int[] places = new int[6];
-        private readonly int[] points = new int[6];
-
-        private readonly bool[] inPenaltyBox = new bool[6];
-
-        private int currentPlayer;
+        private List<Player> players = new List<Player>();
+        private Player currentPlayer;
         private bool isGettingOutOfPenaltyBox;
         private readonly QuestionCollection questionCollection;
 
@@ -24,10 +18,7 @@ namespace Trivia
 
         public bool Add(string playerName)
         {
-            players.Add(playerName);
-            places[players.Count] = 0;
-            points[players.Count] = 0;
-            inPenaltyBox[players.Count] = false;
+            players.Add(new Player(playerName));
 
             Console.WriteLine(playerName + " was added");
             Console.WriteLine("They are player number " + players.Count);
@@ -36,28 +27,28 @@ namespace Trivia
 
         public void Roll(int roll)
         {
-            Console.WriteLine(players[currentPlayer] + " is the current player");
+            Console.WriteLine(currentPlayer + " is the current player");
             Console.WriteLine("They have rolled a " + roll);
 
-            if (inPenaltyBox[currentPlayer])
+            if (currentPlayer.inPenaltyBox)
             {
                 isGettingOutOfPenaltyBox = roll % 2 != 0;
                 if (isGettingOutOfPenaltyBox)
                 {
-                    Console.WriteLine(players[currentPlayer] + " is getting out of the penalty box");
+                    Console.WriteLine(currentPlayer + " is getting out of the penalty box");
                 }
                 else
                 {
-                    Console.WriteLine(players[currentPlayer] + " is not getting out of the penalty box");
+                    Console.WriteLine(currentPlayer + " is not getting out of the penalty box");
                     return;
                 }
             }
 
             MoveToNextPlace(roll);
 
-            Console.WriteLine(players[currentPlayer]
+            Console.WriteLine(currentPlayer
                               + "'s new location is "
-                              + places[currentPlayer]);
+                              + currentPlayer.place);
             Console.WriteLine("The category is " + CurrentCategory());
             questionCollection.GetNextQuestion(CurrentCategory());
         }
@@ -125,5 +116,4 @@ namespace Trivia
             if (currentPlayer == players.Count) currentPlayer = 0;
         }
     }
-
 }
