@@ -4,10 +4,13 @@ namespace Trivia
 {
     public class QuestionCollection
     {
-        public readonly Question popQuestions = new Question("Pop");
-        public readonly Question scienceQuestions = new Question("Science");
-        public readonly Question sportsQuestions = new Question("Sports");
-        public readonly Question rockQuestions = new Question("Rock");
+        public Dictionary<string, Question> questions = new Dictionary<string, Question>();
+        public string[] categories = {
+            "Pop",
+            "Science",
+            "Sports",
+            "Rock"
+        };
 
         public QuestionCollection()
         {
@@ -16,12 +19,9 @@ namespace Trivia
 
         private void AddQuestions()
         {
-            for (var i = 0; i < 50; i++)
+            foreach (var categoryName in categories)
             {
-                popQuestions.AddItem("Pop Question " + i);
-                scienceQuestions.AddItem("Science Question " + i);
-                sportsQuestions.AddItem("Sports Question " + i);
-                rockQuestions.AddItem("Rock Question " + i);
+                questions.Add(categoryName, new Question(categoryName));
             }
         }
     }
