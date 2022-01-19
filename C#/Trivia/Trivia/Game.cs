@@ -45,7 +45,7 @@ namespace Trivia
                 }
             }
 
-            MoveToNextPlace(roll);
+            CurrentPlayer.MoveToNextPlace(roll);
 
             Console.WriteLine(CurrentPlayer.Name
                               + "'s new location is "
@@ -54,13 +54,6 @@ namespace Trivia
             questionCollection.GetNextQuestion(CurrentCategory());
         }
 
-
-        private void MoveToNextPlace(int roll)
-        {
-            CurrentPlayer.Place += roll;
-            if (CurrentPlayer.Place > 11)
-                CurrentPlayer.Place -= 12;
-        }
 
         private string CurrentCategory()
         {

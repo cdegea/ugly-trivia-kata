@@ -11,5 +11,12 @@
         public int Place { get; set; }
         public int Points { get; set; }
         public bool InPenaltyBox { get; set; }
+
+        public void MoveToNextPlace(int roll)
+        {
+            this.Place += roll;
+            if (this.Place > 11)
+                this.Place -= 12;
+        }
     }
 }
