@@ -89,7 +89,6 @@ namespace Trivia
             if (CurrentCategory() == "Rock")
             {
                 Console.WriteLine(questionCollection.rockQuestions.First());
-                questionCollection.rockQuestions.RemoveFirst();
             }
         }
 
