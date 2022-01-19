@@ -16,6 +16,7 @@ namespace Trivia
         }
 
         private Player CurrentPlayer => players[currentPlayerIndex];
+        public bool HasAWinner => CurrentPlayer.Points != 6;
 
         public void AddPlayer(string playerName)
         {
@@ -49,8 +50,8 @@ namespace Trivia
             Console.WriteLine(CurrentPlayer.Name
                               + "'s new location is "
                               + CurrentPlayer.Place);
-            Console.WriteLine("The category is " + CurrentPlayer.GetCategoryByCurrentPlace());
-            questionCollection.GetNextQuestion(CurrentPlayer.GetCategoryByCurrentPlace());
+            Console.WriteLine("The category is " + CurrentPlayer.CurrentCategory());
+            questionCollection.GetNextQuestion(CurrentPlayer.CurrentCategory());
         }
 
         public bool WasCorrectlyAnswered()
@@ -68,11 +69,10 @@ namespace Trivia
                               + CurrentPlayer.Points
                               + " Gold Coins.");
 
-            var notWinner = CurrentPlayer.Points != 6;
+            var notWinner = HasAWinner;
             SetNextCurrentPlayer();
             return notWinner;
         }
-
         public bool WrongAnswer()
         {
             Console.WriteLine("Question was incorrectly answered");

@@ -19,7 +19,7 @@
                 this.Place -= 12;
         }
 
-        public string GetCategoryByCurrentPlace()
+        public string CurrentCategory()
         {
             switch (this.Place)
             {
