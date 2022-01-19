@@ -18,13 +18,12 @@ namespace Trivia
 
         private Player CurrentPlayer => players[currentPlayerIndex];
 
-        public bool Add(string playerName)
+        public void AddPlayer(string playerName)
         {
             players.Add(new Player(playerName));
 
             Console.WriteLine(playerName + " was added");
             Console.WriteLine("They are player number " + players.Count);
-            return true;
         }
 
         public void Roll(int roll)
