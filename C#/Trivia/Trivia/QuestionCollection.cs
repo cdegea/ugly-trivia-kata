@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Trivia
 {
@@ -22,6 +23,14 @@ namespace Trivia
             foreach (var categoryName in categories)
             {
                 questions.Add(categoryName, new Question(categoryName));
+            }
+        }
+
+        public void GetNextQuestion(string nextCategory)
+        {
+            if (questions.TryGetValue(nextCategory, out var question))
+            {
+                question.GetNextQuestion();
             }
         }
     }

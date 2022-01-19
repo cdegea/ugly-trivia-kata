@@ -1,21 +1,31 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Trivia
 {
     public class Question
     {
-        private string category;
         private List<string> items;
 
         public Question(string category)
         {
-            this.category = category;
             items = new List<string>();
+            GenerateQuestions(category);
         }
 
-        public void AddItem(string itemName)
+        private void GenerateQuestions(string category)
         {
-            items.Add(itemName);
+            for (var i = 0; i < 50; i++)
+            {
+                items.Add($"{category} Question {i}");
+            }
+        }
+
+        public void GetNextQuestion()
+        {
+            Console.WriteLine(this.items.First());
+            this.items.RemoveAt(0);
         }
     }
 }

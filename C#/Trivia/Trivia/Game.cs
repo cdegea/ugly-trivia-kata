@@ -59,7 +59,7 @@ namespace Trivia
                               + "'s new location is "
                               + places[currentPlayer]);
             Console.WriteLine("The category is " + CurrentCategory());
-            AskQuestion();
+            questionCollection.GetNextQuestion(CurrentCategory());
         }
 
         private void MoveToNextPlace(int roll)
@@ -67,29 +67,6 @@ namespace Trivia
             places[currentPlayer] += roll;
             if (places[currentPlayer] > 11)
                 places[currentPlayer] -= 12;
-        }
-
-        private void AskQuestion()
-        {
-            if (CurrentCategory() == "Pop")
-            {
-                Console.WriteLine(questionCollection.popQuestions.First());
-                questionCollection.popQuestions.RemoveFirst();
-            }
-            if (CurrentCategory() == "Science")
-            {
-                Console.WriteLine(questionCollection.scienceQuestions.First());
-                questionCollection.scienceQuestions.RemoveFirst();
-            }
-            if (CurrentCategory() == "Sports")
-            {
-                Console.WriteLine(questionCollection.sportsQuestions.First());
-                questionCollection.sportsQuestions.RemoveFirst();
-            }
-            if (CurrentCategory() == "Rock")
-            {
-                Console.WriteLine(questionCollection.rockQuestions.First());
-            }
         }
 
         private string CurrentCategory()
