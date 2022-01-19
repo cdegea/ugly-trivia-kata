@@ -8,8 +8,8 @@ namespace Trivia
     {
         private readonly List<string> players = new List<string>();
 
+        private readonly int[] places = new int[6];
         private readonly int[] points = new int[6];
-        private readonly int[] purses = new int[6];
 
         private readonly bool[] inPenaltyBox = new bool[6];
 
@@ -35,8 +35,8 @@ namespace Trivia
         public bool Add(string playerName)
         {
             players.Add(playerName);
+            places[HowManyPlayers()] = 0;
             points[HowManyPlayers()] = 0;
-            purses[HowManyPlayers()] = 0;
             inPenaltyBox[HowManyPlayers()] = false;
 
             Console.WriteLine(playerName + " was added");
@@ -68,12 +68,13 @@ namespace Trivia
                 }
             }
 
-            points[currentPlayer] = points[currentPlayer] + roll;
-            if (points[currentPlayer] > 11) points[currentPlayer] = points[currentPlayer] - 12;
+            places[currentPlayer] += roll;
+            if (places[currentPlayer] > 11) 
+                places[currentPlayer] = places[currentPlayer] - 12;
 
             Console.WriteLine(players[currentPlayer]
                     + "'s new location is "
-                    + points[currentPlayer]);
+                    + places[currentPlayer]);
             Console.WriteLine("The category is " + CurrentCategory());
             AskQuestion();
 
@@ -105,7 +106,7 @@ namespace Trivia
 
         private string CurrentCategory()
         {
-            switch (points[currentPlayer])
+            switch (places[currentPlayer])
             {
                 case 0:
                 case 4:
@@ -133,13 +134,13 @@ namespace Trivia
             }
 
             Console.WriteLine("Answer was correct!!!!");
-            purses[currentPlayer]++;
+            points[currentPlayer]++;
             Console.WriteLine(players[currentPlayer]
                               + " now has "
-                              + purses[currentPlayer]
+                              + points[currentPlayer]
                               + " Gold Coins.");
 
-            var notWinner = purses[currentPlayer] != 6;
+            var notWinner = points[currentPlayer] != 6;
             SetNextCurrentPlayer();
             return notWinner;
         }
