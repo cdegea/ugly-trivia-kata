@@ -50,13 +50,9 @@ namespace Trivia
             questionCollection.GetNextQuestion(CurrentPlayer.CurrentCategory());
         }
 
-        public bool WasCorrectlyAnswered()
+        public void SetCorrectAnswer()
         {
-            if (CurrentPlayer.InPenaltyBox && !isGettingOutOfPenaltyBox)
-            {
-                SetNextCurrentPlayer();
-                return true;
-            }
+            if (CurrentPlayer.InPenaltyBox && !isGettingOutOfPenaltyBox) return;
 
             Console.WriteLine("Answer was correct!!!!");
             CurrentPlayer.Points++;
@@ -65,23 +61,19 @@ namespace Trivia
                               + CurrentPlayer.Points
                               + " Gold Coins.");
 
-            var notWinner = HasNotAWinner;
-            SetNextCurrentPlayer();
-            return notWinner;
         }
-        public bool WrongAnswer()
+
+        public void SetWrongAnswer()
         {
             Console.WriteLine("Question was incorrectly answered");
             Console.WriteLine(CurrentPlayer.Name + " was sent to the penalty box");
             CurrentPlayer.InPenaltyBox = true;
 
-            SetNextCurrentPlayer();
-            return true;
         }
 
-        private void SetNextCurrentPlayer()
+        public void SetNextCurrentPlayer()
         {
-            if (!this.HasNotAWinner) return;
+            if (!HasNotAWinner) return;
 
             if (++currentPlayerIndex == players.Count)
                 currentPlayerIndex = 0;

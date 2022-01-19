@@ -24,13 +24,12 @@ namespace Trivia
                 game.Roll(rand.Next(5) + 1);
 
                 if (rand.Next(9) == 7)
-                {
-                    game.WrongAnswer();
-                }
+                    game.SetWrongAnswer();
                 else
-                {
-                    game.WasCorrectlyAnswered();
-                }
+                    game.SetCorrectAnswer();
+
+                game.SetNextCurrentPlayer();
+
             } while (game.HasNotAWinner);
         }
     }
