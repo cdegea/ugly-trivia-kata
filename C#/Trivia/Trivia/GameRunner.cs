@@ -29,7 +29,6 @@ namespace Trivia
                     game.SetCorrectAnswer();
 
                 game.SetNextCurrentPlayer();
-
             } while (game.HasNotAWinner);
         }
     }

@@ -9,7 +9,7 @@ namespace Trivia.Tests
     {
         private const string path = "../../../GoldenMasterOutputs";
 
-        [Fact (Skip = "true")]
+        [Fact(Skip = "true")]
         public void generate_a_golden_master()
         {
             Directory.CreateDirectory(path);
@@ -21,7 +21,7 @@ namespace Trivia.Tests
                 using var outputStream = new StreamWriter(fileStream);
                 Console.SetOut(outputStream);
 
-                GameRunner.Main(new [] {i.ToString()});
+                GameRunner.Main(new[] {i.ToString()});
             }
         }
 
@@ -34,7 +34,7 @@ namespace Trivia.Tests
                 var expectedContent = new StringBuilder();
                 Console.SetOut(new StringWriter(expectedContent));
 
-                GameRunner.Main(new[] { i.ToString() });
+                GameRunner.Main(new[] {i.ToString()});
 
                 Assert.Equal(expectedContent.ToString(), File.ReadAllText(Path.Combine(path, fileName)));
             }

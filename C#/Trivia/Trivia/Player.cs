@@ -4,7 +4,7 @@
     {
         public Player(string name)
         {
-            this.Name = name;
+            Name = name;
         }
 
         public string Name { get; set; }
@@ -14,14 +14,14 @@
 
         public void MoveToNextPlace(int roll)
         {
-            this.Place += roll;
-            if (this.Place > 11)
-                this.Place -= 12;
+            Place += roll;
+            if (Place > 11)
+                Place -= 12;
         }
 
-        public string CurrentCategory()
+        public string GetCategoryByCurrentPlace()
         {
-            switch (this.Place)
+            switch (Place)
             {
                 case 0:
                 case 4:

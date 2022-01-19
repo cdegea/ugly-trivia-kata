@@ -7,6 +7,7 @@ namespace Trivia
     {
         private readonly List<Player> players = new List<Player>();
         private readonly QuestionCollection questionCollection = new QuestionCollection();
+
         private int currentPlayerIndex;
         private bool isGettingOutOfPenaltyBox;
 
@@ -45,9 +46,9 @@ namespace Trivia
             Console.WriteLine(CurrentPlayer.Name
                               + "'s new location is "
                               + CurrentPlayer.Place);
-            Console.WriteLine("The category is " + CurrentPlayer.CurrentCategory());
+            Console.WriteLine("The category is " + CurrentPlayer.GetCategoryByCurrentPlace());
 
-            questionCollection.GetNextQuestion(CurrentPlayer.CurrentCategory());
+            questionCollection.GetNextQuestion(CurrentPlayer.GetCategoryByCurrentPlace());
         }
 
         public void SetCorrectAnswer()
@@ -60,7 +61,6 @@ namespace Trivia
                               + " now has "
                               + CurrentPlayer.Points
                               + " Gold Coins.");
-
         }
 
         public void SetWrongAnswer()
@@ -68,7 +68,6 @@ namespace Trivia
             Console.WriteLine("Question was incorrectly answered");
             Console.WriteLine(CurrentPlayer.Name + " was sent to the penalty box");
             CurrentPlayer.InPenaltyBox = true;
-
         }
 
         public void SetNextCurrentPlayer()
