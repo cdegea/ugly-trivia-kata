@@ -138,17 +138,10 @@ namespace Trivia
         {
             if (inPenaltyBox[currentPlayer] && !isGettingOutOfPenaltyBox)
             {
-                currentPlayer++;
-                if (currentPlayer == players.Count) currentPlayer = 0;
+                SetNextCurrentPlayer();
                 return true;
             }
 
-            var winner = CorrectAnswer();
-            return winner;
-        }
-
-        private bool CorrectAnswer()
-        {
             Console.WriteLine("Answer was correct!!!!");
             purses[currentPlayer]++;
             Console.WriteLine(players[currentPlayer]
@@ -156,10 +149,15 @@ namespace Trivia
                               + purses[currentPlayer]
                               + " Gold Coins.");
 
-            var winner = DidPlayerWin();
+            var winner1 = purses[currentPlayer] != 6;
+            SetNextCurrentPlayer();
+            return winner1;
+        }
+
+        private void SetNextCurrentPlayer()
+        {
             currentPlayer++;
             if (currentPlayer == players.Count) currentPlayer = 0;
-            return winner;
         }
 
         public bool WrongAnswer()
@@ -168,15 +166,8 @@ namespace Trivia
             Console.WriteLine(players[currentPlayer] + " was sent to the penalty box");
             inPenaltyBox[currentPlayer] = true;
 
-            currentPlayer++;
-            if (currentPlayer == players.Count) currentPlayer = 0;
+            SetNextCurrentPlayer();
             return true;
-        }
-
-
-        private bool DidPlayerWin()
-        {
-            return purses[currentPlayer] != 6;
         }
     }
 
