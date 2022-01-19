@@ -7,7 +7,7 @@ namespace Trivia
     public class Game
     {
         private List<Player> players = new List<Player>();
-        private Player currentPlayer;
+        private int currentPlayerIndex;
         private bool isGettingOutOfPenaltyBox;
         private readonly QuestionCollection questionCollection;
 
@@ -15,6 +15,7 @@ namespace Trivia
         {
             questionCollection = new QuestionCollection();
         }
+        private Player CurrentPlayer => players[currentPlayerIndex];
 
         public bool Add(string playerName)
         {
@@ -27,42 +28,43 @@ namespace Trivia
 
         public void Roll(int roll)
         {
-            Console.WriteLine(currentPlayer + " is the current player");
+            Console.WriteLine(CurrentPlayer.Name + " is the current player");
             Console.WriteLine("They have rolled a " + roll);
 
-            if (currentPlayer.inPenaltyBox)
+            if (CurrentPlayer.inPenaltyBox)
             {
                 isGettingOutOfPenaltyBox = roll % 2 != 0;
                 if (isGettingOutOfPenaltyBox)
                 {
-                    Console.WriteLine(currentPlayer + " is getting out of the penalty box");
+                    Console.WriteLine(CurrentPlayer.Name + " is getting out of the penalty box");
                 }
                 else
                 {
-                    Console.WriteLine(currentPlayer + " is not getting out of the penalty box");
+                    Console.WriteLine(CurrentPlayer.Name + " is not getting out of the penalty box");
                     return;
                 }
             }
 
             MoveToNextPlace(roll);
 
-            Console.WriteLine(currentPlayer
+            Console.WriteLine(CurrentPlayer.Name
                               + "'s new location is "
-                              + currentPlayer.place);
+                              + CurrentPlayer.place);
             Console.WriteLine("The category is " + CurrentCategory());
             questionCollection.GetNextQuestion(CurrentCategory());
         }
 
+
         private void MoveToNextPlace(int roll)
         {
-            places[currentPlayer] += roll;
-            if (places[currentPlayer] > 11)
-                places[currentPlayer] -= 12;
+            CurrentPlayer.place += roll;
+            if (CurrentPlayer.place > 11)
+                CurrentPlayer.place -= 12;
         }
 
         private string CurrentCategory()
         {
-            switch (places[currentPlayer])
+            switch (CurrentPlayer.place)
             {
                 case 0:
                 case 4:
@@ -83,28 +85,28 @@ namespace Trivia
 
         public bool WasCorrectlyAnswered()
         {
-            if (inPenaltyBox[currentPlayer] && !isGettingOutOfPenaltyBox)
+            if (CurrentPlayer.inPenaltyBox && !isGettingOutOfPenaltyBox)
             {
                 SetNextCurrentPlayer();
                 return true;
             }
 
             Console.WriteLine("Answer was correct!!!!");
-            points[currentPlayer]++;
-            Console.WriteLine(players[currentPlayer]
+            CurrentPlayer.points++;
+            Console.WriteLine(CurrentPlayer.Name
                               + " now has "
-                              + points[currentPlayer]
+                              + CurrentPlayer.points
                               + " Gold Coins.");
 
-            var notWinner = points[currentPlayer] != 6;
+            var notWinner = CurrentPlayer.points != 6;
             SetNextCurrentPlayer();
             return notWinner;
         }
         public bool WrongAnswer()
         {
             Console.WriteLine("Question was incorrectly answered");
-            Console.WriteLine(players[currentPlayer] + " was sent to the penalty box");
-            inPenaltyBox[currentPlayer] = true;
+            Console.WriteLine(CurrentPlayer.Name + " was sent to the penalty box");
+            CurrentPlayer.inPenaltyBox = true;
 
             SetNextCurrentPlayer();
             return true;
@@ -112,8 +114,8 @@ namespace Trivia
 
         private void SetNextCurrentPlayer()
         {
-            currentPlayer++;
-            if (currentPlayer == players.Count) currentPlayer = 0;
+            if (++currentPlayerIndex == players.Count) 
+                currentPlayerIndex = 0;
         }
     }
 }
