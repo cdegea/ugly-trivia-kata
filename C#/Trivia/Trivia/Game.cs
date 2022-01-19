@@ -13,40 +13,25 @@ namespace Trivia
 
         private readonly bool[] inPenaltyBox = new bool[6];
 
-        private readonly LinkedList<string> popQuestions = new LinkedList<string>();
-        private readonly LinkedList<string> scienceQuestions = new LinkedList<string>();
-        private readonly LinkedList<string> sportsQuestions = new LinkedList<string>();
-        private readonly LinkedList<string> rockQuestions = new LinkedList<string>();
-
         private int currentPlayer;
         private bool isGettingOutOfPenaltyBox;
+        private readonly QuestionCollection questionCollection;
 
         public Game()
         {
-            for (var i = 0; i < 50; i++)
-            {
-                popQuestions.AddLast("Pop Question " + i);
-                scienceQuestions.AddLast(("Science Question " + i));
-                sportsQuestions.AddLast(("Sports Question " + i));
-                rockQuestions.AddLast("Rock Question " + i);
-            }
+            questionCollection = new QuestionCollection();
         }
 
         public bool Add(string playerName)
         {
             players.Add(playerName);
-            places[HowManyPlayers()] = 0;
-            points[HowManyPlayers()] = 0;
-            inPenaltyBox[HowManyPlayers()] = false;
+            places[players.Count] = 0;
+            points[players.Count] = 0;
+            inPenaltyBox[players.Count] = false;
 
             Console.WriteLine(playerName + " was added");
             Console.WriteLine("They are player number " + players.Count);
             return true;
-        }
-
-        public int HowManyPlayers()
-        {
-            return players.Count;
         }
 
         public void Roll(int roll)
@@ -88,23 +73,23 @@ namespace Trivia
         {
             if (CurrentCategory() == "Pop")
             {
-                Console.WriteLine(popQuestions.First());
-                popQuestions.RemoveFirst();
+                Console.WriteLine(questionCollection.popQuestions.First());
+                questionCollection.popQuestions.RemoveFirst();
             }
             if (CurrentCategory() == "Science")
             {
-                Console.WriteLine(scienceQuestions.First());
-                scienceQuestions.RemoveFirst();
+                Console.WriteLine(questionCollection.scienceQuestions.First());
+                questionCollection.scienceQuestions.RemoveFirst();
             }
             if (CurrentCategory() == "Sports")
             {
-                Console.WriteLine(sportsQuestions.First());
-                sportsQuestions.RemoveFirst();
+                Console.WriteLine(questionCollection.sportsQuestions.First());
+                questionCollection.sportsQuestions.RemoveFirst();
             }
             if (CurrentCategory() == "Rock")
             {
-                Console.WriteLine(rockQuestions.First());
-                rockQuestions.RemoveFirst();
+                Console.WriteLine(questionCollection.rockQuestions.First());
+                questionCollection.rockQuestions.RemoveFirst();
             }
         }
 
